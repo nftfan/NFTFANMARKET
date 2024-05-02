@@ -16,23 +16,26 @@
 
 header {
     width: 100%;
-    padding: 20px 0;
+    font-size: 10px;
+    padding: 1px 0;
     text-align: center;
-    background-color: #222; /* Darker background color for header */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for header */
+    background-color: #f15959; /* Darker background color for header */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure header stays on top of other content */
 }
 
-header img {
-    width: 50px;
-    height: 50px;
-    vertical-align: middle;
-    border-radius: 50%; /* Rounded border for logo */
-}
+
+
+
+
 
 header h1 {
     display: inline-block;
     margin-left: 10px;
-    font-size: 24px;
+	margin-top: 10px;
+    font-size: 30px;
     font-weight: bold;
     letter-spacing: 1px;
 }
@@ -42,6 +45,7 @@ header h1 {
     flex-wrap: wrap;
     justify-content: center; /* Center align items */
     padding: 20px; /* Add some padding */
+	margin-top: 70px;
 }
 
 .photo-container {
@@ -67,10 +71,10 @@ header h1 {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #2081e2;
     padding: 5px;
     text-align: left;
-    font-size: 7px;
+    font-size: 9px;
     
 }
 
@@ -114,14 +118,31 @@ header h1 {
 .popup button:hover {
     background-color: #555;
 }
+ /* Additional style for the button */
+   #mint-button {
+      background-color: #111; /* Same color as the header */
+      color: #fff;
+      border: 2px solid;
+      padding: 10px 20px;
+      font-size: 15px;
+      cursor: pointer;
+      border-radius: 20px;
+      margin-top: 0px;
+   }
+
+   #mint-button:hover {
+      background-color: #f17c7c; /* Lighter shade on hover */
+   }
 
 </style>
 </head>
 <body>
 
 <header>
-    <img src="https://i.seadn.io/s/raw/files/c9b8c93286e57953f4885a4b05df9194.png?auto=format&dpr=1&w=1000" alt="NFT Logo">
-    <h1>NFT Fans Market</h1>
+    
+    <h1 style="font-size: 30px;">NFT FANS BAY</h1>
+	<button id="mint-button" onclick="showPopup()">BUY</button>
+
 </header>
 
 <div class="photo-grid" id="photo-grid">
@@ -136,11 +157,16 @@ header h1 {
         <button id="btn-close" onclick="closePopup()">Close</button>
     </div>
 </div>
-
+<div class="popup" id="mint-popup">
+    <div class="popup-content">
+        <p>MOON COMING SOON</p> <!-- Text to display in the popup -->
+        <button id="close-mint-popup" onclick="closeMintPopup()">Close</button> <!-- Button to close the popup -->
+    </div>
+</div>
 <!-- Add more photo containers as needed -->
 
 <script>
-    var imageUrls = ["https://pbs.twimg.com/media/Ft8cRsBWAAAOSHi?format=jpg&name=medium", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/6b01984f4bd20a0ef0923b2882810e8e.gif?auto=format&dpr=1&w=1000", "https://bafybeihrngbla3gtfwrrx6qjdmjqz7pzgvpigz27rwoiv5khrftad3nyze.ipfs.nftstorage.link/", "https://bafybeignvw4smn273rt663y4dtmsra7vbtahrnojfx7jkf32fe2nsszg4e.ipfs.nftstorage.link/", "https://bafybeiccjkg42ogi3nkjuo3uzokytsdocksqgh2yc4oxqowxyuug7zeb5e.ipfs.nftstorage.link/"];
+    var imageUrls = ["https://i.seadn.io/s/raw/files/71061a1963fe50573dfcf23e89438f6c.gif?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/6b01984f4bd20a0ef0923b2882810e8e.gif?auto=format&dpr=1&w=1000", "https://bafybeihrngbla3gtfwrrx6qjdmjqz7pzgvpigz27rwoiv5khrftad3nyze.ipfs.nftstorage.link/", "https://bafybeignvw4smn273rt663y4dtmsra7vbtahrnojfx7jkf32fe2nsszg4e.ipfs.nftstorage.link/", "https://bafybeiccjkg42ogi3nkjuo3uzokytsdocksqgh2yc4oxqowxyuug7zeb5e.ipfs.nftstorage.link/"];
 
     var photoGrid = document.getElementById('photo-grid');
     var popup = document.getElementById('popup');
@@ -191,6 +217,19 @@ header h1 {
         popupImage.src = imageUrls[currentIndex];
         popupPrice.textContent = 'Price: 1.00' + (7 + currentIndex) + ' $matic';
     }
+</script>
+<script>
+   // Your existing JavaScript code
+
+   function showPopup() {
+      var mintPopup = document.getElementById('mint-popup');
+      mintPopup.style.display = 'flex'; // Display the popup
+   }
+
+   function closeMintPopup() {
+      var mintPopup = document.getElementById('mint-popup');
+      mintPopup.style.display = 'none'; // Hide the popup
+   }
 </script>
 
 </body>
