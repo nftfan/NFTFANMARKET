@@ -5,67 +5,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NFT Fans Market</title>
 <style>
-    body {
-        margin: 0 auto;
-        padding: 0;
-        background-color: #111; /* Dark background color */
-        color: #fff; /* Light text color */
-        font-family: Arial, sans-serif;
-        max-width: 800px; /* Set maximum width */
-    }
-    
-    header {
-        width: 100%;
-        padding: 20px 0;
-        text-align: center;
-        background-color: #222; /* Darker background color for header */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for header */
-    }
+   body {
+    margin: 0 auto;
+    padding: 0;
+    background-color: #111; /* Dark background color */
+    color: #fff; /* Light text color */
+    font-family: Arial, sans-serif;
+    max-width: 800px; /* Set maximum width to full screen */
+}
 
-    header img {
-        width: 50px;
-        height: 50px;
-        vertical-align: middle;
-        border-radius: 50%; /* Rounded border for logo */
-    }
+header {
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    background-color: #222; /* Darker background color for header */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for header */
+}
 
-    header h1 {
-        display: inline-block;
-        margin-left: 10px;
-        font-size: 24px;
-        font-weight: bold;
-        letter-spacing: 1px;
-    }
+header img {
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+    border-radius: 50%; /* Rounded border for logo */
+}
 
-    .photo-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        padding: 10px; /* Add some padding */
-    }
-    
+header h1 {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center align items */
+    padding: 20px; /* Add some padding */
+}
+
+.photo-container {
+    width: 100px;
+    margin: 1px; /* Adjust margin */
+    position: relative;
+    overflow: hidden;
+    border-radius: 1px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Light box shadow */
+}
+
+.photo-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    border-radius: 1px;
+}
+
+.price-tag {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px;
+    text-align: center;
+    font-size: 12px;
+}
+
+@media (min-width: 640px) {
     .photo-container {
-        width: calc(33.33% - 5px); /* Adjust width and margins */
-        margin-bottom: 10px;
-        position: relative;
-        overflow: hidden;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Light box shadow */
+        width: calc(33.33% - 20px); /* Adjust width for larger screens */
     }
+}
 
-    .photo-container img, .photo-container video {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        display: block;
-        border-radius: 10px;
-    }
-
-    @media (max-width: 480px) {
-        .photo-container {
-            width: calc(50% - 5px); /* Adjust width for mobile screens */
-        }
-    }
 </style>
 </head>
 <body>
@@ -75,27 +87,34 @@
     <h1>NFT Fans Market</h1>
 </header>
 
-<div class="photo-grid">
-    <div class="photo-container">
-        <img src="https://i.seadn.io/s/raw/files/350f36ca4318d025691ea2583dc6ed3c.png?auto=format&dpr=1&w=1200" alt="Photo 1">
-    </div>
-
-    <div class="photo-container">
-        <img src="https://i.seadn.io/s/raw/files/350f36ca4318d025691ea2583dc6ed3c.png?auto=format&dpr=1&w=1200" alt="Photo 2">
-    </div>
-
-    <div class="photo-container">
-        <img src="https://i.seadn.io/s/raw/files/350f36ca4318d025691ea2583dc6ed3c.png?auto=format&dpr=1&w=1200" alt="Photo 3">
-    </div>
-	
-	<div class="photo-container">
-        <video controls>
-            <source src="https://bafybeiaosjn43jrkdrc7alxywuhts72zmhqnm6turttcwn55qp6vtvlwv4.ipfs.nftstorage.link/" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-	
+<div class="photo-grid" id="photo-grid">
 </div>
+
+<!-- Add more photo containers as needed -->
+
+<script>
+    var imageUrls = ["https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/6b01984f4bd20a0ef0923b2882810e8e.gif?auto=format&dpr=1&w=1000", "https://bafybeihrngbla3gtfwrrx6qjdmjqz7pzgvpigz27rwoiv5khrftad3nyze.ipfs.nftstorage.link/", "https://bafybeignvw4smn273rt663y4dtmsra7vbtahrnojfx7jkf32fe2nsszg4e.ipfs.nftstorage.link/", "https://bafybeiccjkg42ogi3nkjuo3uzokytsdocksqgh2yc4oxqowxyuug7zeb5e.ipfs.nftstorage.link/"];
+
+    var photoGrid = document.getElementById('photo-grid');
+
+    imageUrls.forEach(function(url, index) {
+        var photoContainer = document.createElement('div');
+        photoContainer.className = 'photo-container';
+
+        var img = document.createElement('img');
+        img.src = url;
+        img.alt = 'Photo ' + (index + 1);
+
+        var priceTag = document.createElement('div');
+        priceTag.className = 'price-tag';
+        priceTag.textContent = 'Price: 1.00' + (7 + index) + ' $matic';
+
+        photoContainer.appendChild(img);
+        photoContainer.appendChild(priceTag);
+
+        photoGrid.appendChild(photoContainer);
+    });
+</script>
 
 </body>
 </html>
