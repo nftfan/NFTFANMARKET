@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NFT Fans Market</title>
+<style>
+    body {
+        margin: 0 auto;
+        padding: 0;
+        background-color: #111; /* Dark background color */
+        color: #fff; /* Light text color */
+        font-family: Arial, sans-serif;
+        max-width: 800px; /* Set maximum width */
+    }
+    
+    header {
+        width: 100%;
+        padding: 20px 0;
+        text-align: center;
+        background-color: #222; /* Darker background color for header */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for header */
+    }
+
+    header img {
+        width: 50px;
+        height: 50px;
+        vertical-align: middle;
+        border-radius: 50%; /* Rounded border for logo */
+    }
+
+    header h1 {
+        display: inline-block;
+        margin-left: 10px;
+        font-size: 24px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .photo-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 10px; /* Add some padding */
+    }
+    
+    .photo-container {
+        width: calc(33.33% - 5px); /* Adjust width and margins */
+        margin-bottom: 10px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Light box shadow */
+    }
+
+    .photo-container img, .photo-container video {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        display: block;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 480px) {
+        .photo-container {
+            width: calc(50% - 5px); /* Adjust width for mobile screens */
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <img src="https://i.seadn.io/s/raw/files/c9b8c93286e57953f4885a4b05df9194.png?auto=format&dpr=1&w=1000" alt="NFT Logo">
+    <h1>NFT Fans Market</h1>
+</header>
+
+<div class="photo-grid">
+    <div class="photo-container">
+        <img src="https://i.seadn.io/s/raw/files/350f36ca4318d025691ea2583dc6ed3c.png?auto=format&dpr=1&w=1200" alt="Photo 1">
+    </div>
+
+    <div class="photo-container">
+        <img src="https://i.seadn.io/s/raw/files/350f36ca4318d025691ea2583dc6ed3c.png?auto=format&dpr=1&w=1200" alt="Photo 2">
+    </div>
+
+    <div class="photo-container">
+        <img src="https://i.seadn.io/s/raw/files/350f36ca4318d025691ea2583dc6ed3c.png?auto=format&dpr=1&w=1200" alt="Photo 3">
+    </div>
+	
+	<div class="photo-container">
+        <video controls>
+            <source src="https://bafybeiaosjn43jrkdrc7alxywuhts72zmhqnm6turttcwn55qp6vtvlwv4.ipfs.nftstorage.link/" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+	
+</div>
+
+</body>
+</html>
