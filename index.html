@@ -51,11 +51,12 @@ header h1 {
     overflow: hidden;
     border-radius: 1px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Light box shadow */
+    cursor: pointer; /* Add cursor pointer to indicate clickability */
 }
 
 .photo-container img {
     width: 100%;
-    height: auto;
+    height: 200px;
     object-fit: cover;
     display: block;
     border-radius: 1px;
@@ -70,12 +71,48 @@ header h1 {
     padding: 5px;
     text-align: left;
     font-size: 7px;
+    
 }
 
-@media (min-width: 640px) {
-    .photo-container {
-        width: calc(33.33% - 20px); /* Adjust width for larger screens */
-    }
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Hide popup by default */
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 80%;
+    text-align: center;
+}
+
+.popup img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.popup button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.popup button:hover {
+    background-color: #555;
 }
 
 </style>
@@ -90,12 +127,26 @@ header h1 {
 <div class="photo-grid" id="photo-grid">
 </div>
 
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <img id="popup-image" src="" alt="Popup Image">
+        <div id="popup-price" class="price-tag"></div>
+        <button id="btn-prev" onclick="prevPhoto()">Prev</button>
+        <button id="btn-next" onclick="nextPhoto()">Next</button>
+        <button id="btn-close" onclick="closePopup()">Close</button>
+    </div>
+</div>
+
 <!-- Add more photo containers as needed -->
 
 <script>
-    var imageUrls = ["https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/6b01984f4bd20a0ef0923b2882810e8e.gif?auto=format&dpr=1&w=1000", "https://bafybeihrngbla3gtfwrrx6qjdmjqz7pzgvpigz27rwoiv5khrftad3nyze.ipfs.nftstorage.link/", "https://bafybeignvw4smn273rt663y4dtmsra7vbtahrnojfx7jkf32fe2nsszg4e.ipfs.nftstorage.link/", "https://bafybeiccjkg42ogi3nkjuo3uzokytsdocksqgh2yc4oxqowxyuug7zeb5e.ipfs.nftstorage.link/"];
+    var imageUrls = ["https://pbs.twimg.com/media/Ft8cRsBWAAAOSHi?format=jpg&name=medium", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/0ebbb12515a30af8632e6557fea55565.png?auto=format&dpr=1&w=1000", "https://i.seadn.io/s/raw/files/6b01984f4bd20a0ef0923b2882810e8e.gif?auto=format&dpr=1&w=1000", "https://bafybeihrngbla3gtfwrrx6qjdmjqz7pzgvpigz27rwoiv5khrftad3nyze.ipfs.nftstorage.link/", "https://bafybeignvw4smn273rt663y4dtmsra7vbtahrnojfx7jkf32fe2nsszg4e.ipfs.nftstorage.link/", "https://bafybeiccjkg42ogi3nkjuo3uzokytsdocksqgh2yc4oxqowxyuug7zeb5e.ipfs.nftstorage.link/"];
 
     var photoGrid = document.getElementById('photo-grid');
+    var popup = document.getElementById('popup');
+    var popupImage = document.getElementById('popup-image');
+    var popupPrice = document.getElementById('popup-price');
+    var currentIndex = 0;
 
     imageUrls.forEach(function(url, index) {
         var photoContainer = document.createElement('div');
@@ -104,6 +155,9 @@ header h1 {
         var img = document.createElement('img');
         img.src = url;
         img.alt = 'Photo ' + (index + 1);
+        img.addEventListener('click', function() {
+            openPopup(index);
+        });
 
         var priceTag = document.createElement('div');
         priceTag.className = 'price-tag';
@@ -114,6 +168,29 @@ header h1 {
 
         photoGrid.appendChild(photoContainer);
     });
+
+    function openPopup(index) {
+        currentIndex = index;
+        popupImage.src = imageUrls[index];
+        popupPrice.textContent = 'Price: 1.00' + (7 + index) + ' $matic';
+        popup.style.display = 'flex';
+    }
+
+    function closePopup() {
+        popup.style.display = 'none';
+    }
+
+    function nextPhoto() {
+        currentIndex = (currentIndex + 1) % imageUrls.length;
+        popupImage.src = imageUrls[currentIndex];
+        popupPrice.textContent = 'Price: 1.00' + (7 + currentIndex) + ' $matic';
+    }
+
+    function prevPhoto() {
+        currentIndex = (currentIndex - 1 + imageUrls.length) % imageUrls.length;
+        popupImage.src = imageUrls[currentIndex];
+        popupPrice.textContent = 'Price: 1.00' + (7 + currentIndex) + ' $matic';
+    }
 </script>
 
 </body>
