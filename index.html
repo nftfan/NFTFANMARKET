@@ -128,6 +128,21 @@ header h1 {
 #mint-button:hover {
     background-color: #f17c7c; /* Lighter shade on hover */
 }
+
+#next-button {
+    background-color: #111; /* Same color as the header */
+    color: #fff;
+    border: 2px solid;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+#next-button:hover {
+    background-color: #f17c7c; /* Lighter shade on hover */
+}
 </style>
 </head>
 <body>
@@ -138,6 +153,8 @@ header h1 {
 </header>
 
 <div class="photo-grid" id="photo-grid"></div>
+
+<button id="next-button" onclick="nextPage()">Next</button>
 
 <div class="popup" id="popup">
     <div class="popup-content">
@@ -171,9 +188,12 @@ header h1 {
             var img = document.createElement('img');
             img.src = allImageUrls[i];
             img.alt = 'Photo ' + (i + 1);
-            img.addEventListener('click', function() {
-                openPopup(i);
-            });
+            // Use a closure to capture the current value of 'i'
+            img.addEventListener('click', (function(index) {
+                return function() {
+                    openPopup(index);
+                };
+            })(i));
 
             var priceTag = document.createElement('div');
             priceTag.className = 'price-tag';
@@ -186,7 +206,13 @@ header h1 {
         }
     }
 
-    loadPhotos(0, 30);
+    loadPhotos(0, 14);
+
+    function nextPage() {
+        photoGrid.innerHTML = ''; // Clear the existing photos
+        loadPhotos(currentIndex, 14);
+        currentIndex += 14;
+    }
 
     function isNearBottom() {
         return (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
@@ -194,7 +220,7 @@ header h1 {
 
     window.onscroll = function() {
         if (isNearBottom()) {
-            loadPhotos(photoGrid.children.length, 30);
+            nextPage();
         }
     };
 </script>
